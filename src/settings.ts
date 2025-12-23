@@ -53,7 +53,7 @@ export const social = {
 
 export const template = {
   website_url: 'https://evavanheese.github.io',
-  menu_left: true,
+  menu_left: false,
   transitions: true,
   lightTheme: 'light',
   darkTheme: 'dark',
@@ -64,6 +64,6 @@ export const template = {
 
 export const seo = {
 	default_title: 'Eva van Heese',
-	default_description: '',
-	default_image: '',
+	default_description: 'I investigate sleep, neurodegeneration, and brain clearance using MRI. This research includes a central role in coordinating international consortia, focussed on pooling imaging data to improve power, reproducibility, and diversity across datasets. I actively promote open science through my research, collaborations, and outreach initiatives aimed at the broader community.',
+	default_image: '/images/eva-van-heese-picture.jpg',
 }
