@@ -1,15 +1,10 @@
-# Personal Academic Website
+This repository contains the source code for my personal academic website.
 
-Source code for my personal academic website, built with Astro and deployed via GitHub Pages.
-
+Visit the website here:  
 https://evavanheese.github.io
 
-## Template
-
-Based on Astro Academia by Maior Barbero  
+The site is built with Astro and based on the Astro Academia template by Maior Barbero:  
 https://github.com/maiobarbero/astro_academia
-
-## License
 
 MIT License.  
 © Eva van Heese.
