@@ -21,7 +21,14 @@ const {fullName, title} = profile
 					src={ProfilePictures}
 					alt={`Profile picture of ${fullName}`}
 				/>
-				<h1 class="text-lg font-black mt-8 hidden lg:block">{title} <span>{fullName}</span></h1>
+				<div class="mt-8 hidden lg:block text-center">
+  					<p class="text-lg font-semibold">
+    					{fullName}
+  					</p>
+  					<p class="text-sm text-gray-600">
+    					{title}
+  					</p>
+				</div>
 			</div>
 			<div class='mx-4 mt-16'>
 				<ul class='space-y-4 menu grow shrink menu-md overflow-y-auto'>
