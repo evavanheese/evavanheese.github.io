@@ -3,6 +3,7 @@ export const profile = {
 	title: 'PhD Candidate',
 	institute: 'Amsterdam University Medical Centre, the Netherlands',
 	author_name: 'Eva van Heese', // Author name to be highlighted in the papers section
+	bio: 'I investigate sleep, neurodegeneration, and brain clearance using MRI. This research includes a central role in coordinating international consortia, focussed on pooling imaging data to improve power, reproducibility, and diversity across datasets. I actively promote open science through my research, collaborations, and outreach initiatives aimed at the broader community.',
 	research_areas: [
   {
     title: 'MRI',
