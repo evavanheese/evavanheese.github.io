@@ -63,8 +63,12 @@ export const template = {
   base: '' // user site
 }
 
+// SEO settings used for metadata only (e.g. Google search results,
+// social media previews, link unfurls).
+// NOTE: This description is NOT shown on the homepage.
+// The visible homepage text is defined in the Hero component.
 export const seo = {
-	default_title: 'Eva van Heese',
-	default_description: 'I investigate sleep, neurodegeneration, and brain clearance using MRI. This research includes a central role in coordinating international consortia, focussed on pooling imaging data to improve power, reproducibility, and diversity across datasets. I actively promote open science through my research, collaborations, and outreach initiatives aimed at the broader community.',
-	default_image: '/images/eva-van-heese-picture.jpg',
+  default_title: 'Eva van Heese',
+  default_description: 'I investigate sleep, neurodegeneration, and brain clearance using MRI. This research includes a central role in coordinating international consortia, focussed on pooling imaging data to improve power, reproducibility, and diversity across datasets. I actively promote open science through my research, collaborations, and outreach initiatives aimed at the broader community.',
+  default_image: '/images/eva-van-heese-picture.jpg',
 }
