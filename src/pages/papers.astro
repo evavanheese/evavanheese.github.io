@@ -4,10 +4,10 @@ import publications from "@/data/publications.json";
 import { highlightAuthor } from "@/lib/utils";
 
 const firstAuthorPapers = publications.filter(
-  (p) => p.is_first_author && !p.is_preprint && p.type !== "preregistration"
+  (p) => p.is_first_author && !p.is_preprint && p.type !== "preregistration" && p.type !== "book-chapter"
 );
 const firstAuthorPreprints = publications.filter(
-  (p) => p.is_first_author && p.is_preprint && p.type !== "preregistration"
+  (p) => p.is_first_author && p.is_preprint && p.type !== "preregistration" && p.type !== "book-chapter"
 );
 const firstAuthorAll = [...firstAuthorPapers, ...firstAuthorPreprints];
 
