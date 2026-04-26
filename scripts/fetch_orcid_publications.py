@@ -14,13 +14,15 @@ Fields produced per publication:
   doi             - normalised DOI for deduplication
 
 Manual entries from src/data/publications-manual.json are merged in and
-deduplicated by DOI so hand-curated records always win.
+deduplicated by DOI and title so hand-curated records always win.
+Preprints are suppressed when a published version with the same title exists.
 """
 
 import json
 import re
 import sys
 import time
+import unicodedata
 from pathlib import Path
 
 import requests
@@ -31,17 +33,16 @@ HEADERS = {"Accept": "application/json"}
 OUT_PATH = Path(__file__).parent.parent / "src" / "data" / "publications.json"
 MANUAL_PATH = Path(__file__).parent.parent / "src" / "data" / "publications-manual.json"
 
-# How many put-codes to fetch in one bulk request (ORCID max is 100)
 BULK_SIZE = 50
-# Polite delay between bulk requests (seconds)
 REQUEST_DELAY = 1.0
 
 # DOIs to exclude entirely (normalised: lowercase, no https://doi.org/ prefix)
 BLOCKED_DOIS: set[str] = {
-    "10.1101/2025.03.19.25324269",  # Precise perivascular space segmentation (HCP-Aging)
+    "10.1101/2025.03.19.25324269",   # Precise perivascular space segmentation (HCP-Aging)
+    "10.31222/osf.io/dc5ey_v1",      # ENIGMA open-science preprint, published in Aperture Neuro
+    "10.1101/2024.11.04.24316690",   # Narcolepsy MRI clearance preprint, published in JSR
 }
 
-# DOI prefixes that indicate a preprint server
 PREPRINT_DOI_PREFIXES = (
     "10.1101/",   # bioRxiv / medRxiv
     "10.31222/",  # OSF preprints
@@ -50,7 +51,6 @@ PREPRINT_DOI_PREFIXES = (
     "10.31219/",  # OSF preprints (older prefix)
 )
 
-# Journal-name substrings that indicate a preprint
 PREPRINT_JOURNAL_KEYWORDS = (
     "biorxiv", "medrxiv", "preprint", "osf", "arxiv",
 )
@@ -64,6 +64,16 @@ AUTHOR_PATTERN = re.compile(
 
 def normalise_doi(doi: str) -> str:
     return doi.replace("https://doi.org/", "").replace("http://doi.org/", "").lower().strip()
+
+
+def normalise_title(title: str) -> str:
+    """Normalise a title for fuzzy comparison: lowercase, strip punctuation and extra whitespace."""
+    # Unicode normalisation handles non-standard hyphens, accents, etc.
+    title = unicodedata.normalize("NFKD", title.lower().strip())
+    # Remove all punctuation so hyphens, dashes, etc. don't cause mismatches
+    title = re.sub(r"[^\w\s]", "", title)
+    title = re.sub(r"\s+", " ", title).strip()
+    return title
 
 
 def detect_preprint(doi: str | None, journal: str) -> bool:
@@ -120,7 +130,6 @@ def extract_authors(work: dict) -> str:
     names = [n for n in names if n]
     if names:
         return ", ".join(names)
-    # Rough BibTeX fallback
     for line in (work.get("citation") or {}).get("citation-value", "").splitlines():
         if line.strip().lower().startswith("author"):
             return line.split("=", 1)[-1].strip().strip("{},")
@@ -170,7 +179,9 @@ def build_publication(work: dict) -> dict | None:
         "abstract": (work.get("short-description") or "").strip(),
         "is_preprint": detect_preprint(doi, journal),
         "is_first_author": detect_first_author(authors),
+        "shared_first_author": False,
         "doi": normalise_doi(doi) if doi else "",
+        "type": None,
     }
 
 
@@ -179,6 +190,24 @@ def load_manual_publications() -> list[dict]:
         return []
     with MANUAL_PATH.open(encoding="utf-8") as f:
         return json.load(f)
+
+
+def suppress_duplicate_preprints(pubs: list[dict]) -> list[dict]:
+    """Remove preprints when a published version with the same title exists."""
+    published_titles = {
+        normalise_title(p["title"])
+        for p in pubs
+        if not p.get("is_preprint")
+    }
+    before = len(pubs)
+    pubs = [
+        p for p in pubs
+        if not p.get("is_preprint") or normalise_title(p["title"]) not in published_titles
+    ]
+    suppressed = before - len(pubs)
+    if suppressed:
+        print(f"  Suppressed {suppressed} preprint(s) with a published counterpart.")
+    return pubs
 
 
 def main() -> None:
@@ -197,14 +226,21 @@ def main() -> None:
         if i + BULK_SIZE < len(put_codes):
             time.sleep(REQUEST_DELAY)
 
-    # Manual entries win on deduplication
+    # Manual entries win on deduplication by both DOI and normalised title
     manual = load_manual_publications()
-    manual_dois = {
-        normalise_doi(p.get("doi") or p.get("link", ""))
-        for p in manual
-    }
-    merged = [p for p in orcid_pubs if p.get("doi") not in manual_dois]
+    manual_dois = {normalise_doi(p.get("doi") or "") for p in manual if p.get("doi")}
+    manual_titles = {normalise_title(p.get("title", "")) for p in manual}
+
+    merged = [
+        p for p in orcid_pubs
+        if p.get("doi") not in manual_dois
+        and normalise_title(p.get("title", "")) not in manual_titles
+    ]
     merged.extend(manual)
+
+    # Suppress preprints that have a published counterpart in the merged list
+    merged = suppress_duplicate_preprints(merged)
+
     merged.sort(key=lambda p: p.get("time", "") or "", reverse=True)
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
