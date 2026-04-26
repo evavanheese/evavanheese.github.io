@@ -5,15 +5,10 @@
     "authors": "Eva M. van Heese, Jari K. Gool, Gert Jan Lammers, Ysbrand D. van der Werf, Matthias J. P. van Osch, Rolf Fronczek, Lydiane Hirschler",
     "journal": "Journal of Sleep Research",
     "time": "2025",
-    "abstract": ""
-  },
-  {
-    "title": "Precise perivascular space segmentation on magnetic resonance imaging from Human Connectome Project-Aging",
-    "link": "https://doi.org/10.1101/2025.03.19.25324269",
-    "authors": "Yaqiong Chai, Hedong Zhang, Carlos Robles, Andrew Shinho Kim, Nada Janhanshad, Paul M Thompson, Ysbrand van der Werf, Eva M. van Heese, Jiyoung Kim, Eun Yeon Joo, Leon Aksman, Kyung-Wook Kang, Jung-Won Shin, Abigail Trang, Jongmok Ha, Emily Lee, Yeonsil Moon, Hosung Kim",
-    "journal": "",
-    "time": "2025",
-    "abstract": ""
+    "abstract": "",
+    "is_preprint": false,
+    "is_first_author": true,
+    "doi": "10.1111/jsr.14479"
   },
   {
     "title": "Adopting open-science infrastructure in the ENIGMA-Parkinson’s Disease consortium: A case study",
@@ -21,7 +16,10 @@
     "authors": "Sebastian Georg Wenzel Urchs, Nikhil Bhagwat, Emile d'Angremont, Eva van Heese, Alyssa Dai, Mathieu Dugré, Max A. Laansma, Brent McPherson, Michelle Wang, Tim Daniël van Balkom, Henk Berendse, Anna Dortmond, Franziska Goltz, Alain Dagher, Rick Helmich, Odile A. van den Heuvel, Martin E. Johansson, Teus van Laar, Elbrich M. Postma, Neda Jahanshad, Paul Thompson, Chris Vriend, Ysbrand van der Werf, Jean-Baptiste Poline",
     "journal": "",
     "time": "2025",
-    "abstract": ""
+    "abstract": "",
+    "is_preprint": true,
+    "is_first_author": false,
+    "doi": "10.31222/osf.io/dc5ey_v1"
   },
   {
     "title": "MRI-based surrogates of brain clearance in narcolepsy type 1",
@@ -29,7 +27,10 @@
     "authors": "Eva M. van Heese, Jari K. Gool, Gert Jan Lammers, Ysbrand D. van der Werf, Matthias J.P. van Osch, Rolf Fronczek, Lydiane Hirschler",
     "journal": "",
     "time": "2024",
-    "abstract": ""
+    "abstract": "",
+    "is_preprint": true,
+    "is_first_author": true,
+    "doi": "10.1101/2024.11.04.24316690"
   },
   {
     "title": "A worldwide study of subcortical shape as a marker for clinical staging in Parkinson’s disease",
@@ -37,7 +38,22 @@
     "authors": "Max A. Laansma, Yuji Zhao, Eva M. van Heese, Joanna K. Bright, Conor Owens-Walton, Sarah Al-Bachari, Tim J. Anderson, Francesca Assogna, Tim D. van Balkom, Henk W. Berendse, Fernando Cendes, John C. Dalrymple-Alford, Ines Debove, Michiel F. Dirkx, Jason Druzgal, Hedley C. A. Emsley, Jean-Paul Fouche, Gaëtan Garraux, Rachel P. Guimarães, Rick C. Helmich, Michele Hu, Odile A. van den Heuvel, Dmitry Isaev, Ho-Bin Kim, Johannes C. Klein, Christine Lochner, Corey T. McMillan, Tracy R. Melzer, Benjamin Newman, Laura M. Parkes, Clelia Pellicano, Fabrizio Piras, Toni L. Pitcher, Kathleen L. Poston, Mario Rango, Leticia F. Ribeiro, Cristiane S. Rocha, Christian Rummel, Lucas S. R. Santos, Reinhold Schmidt, Petra Schwingenschuh, Letizia Squarcina, Dan J. Stein, Daniela Vecchio, Chris Vriend, Jiunjie Wang, Daniel Weintraub, Roland Wiest, Clarissa L. Yasuda, Neda Jahanshad, Paul M. Thompson, Ysbrand D. van der Werf, Boris A. Gutman",
     "journal": "npj Parkinson's Disease",
     "time": "2024",
-    "abstract": ""
+    "abstract": "",
+    "is_preprint": false,
+    "is_first_author": false,
+    "doi": "10.1038/s41531-024-00825-9"
+  },
+  {
+    "title": "Example preregistration title",
+    "link": "https://osf.io/xxxxx",
+    "authors": "Eva M. van Heese, Co-author Name",
+    "journal": "OSF Registries",
+    "time": "2024",
+    "abstract": "Optional short description of the preregistration.",
+    "is_preprint": false,
+    "is_first_author": true,
+    "doi": "",
+    "type": "preregistration"
   },
   {
     "title": "Structural assessment of thalamus morphology in brain disorders: A review and recommendation of thalamic nucleus segmentation and shape analysis",
@@ -45,6 +61,9 @@
     "authors": "Jikke T. Boelens Keun, Eva M. van Heese, Max A. Laansma, Cees J. Weeland, Niels T. de Joode, Odile A. van den Heuvel, Jari K. Gool, Selina Kasprzak, Joanna K. Bright, Chris Vriend, Ysbrand D. van der Werf",
     "journal": "Neuroscience & Biobehavioral Reviews",
     "time": "2021",
-    "abstract": ""
+    "abstract": "",
+    "is_preprint": false,
+    "is_first_author": false,
+    "doi": "10.1016/j.neubiorev.2021.09.044"
   }
 ]
