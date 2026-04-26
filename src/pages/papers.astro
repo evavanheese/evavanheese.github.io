@@ -4,18 +4,24 @@ import publications from "@/data/publications.json";
 import { highlightAuthor } from "@/lib/utils";
 
 const firstAuthorPapers = publications.filter(
-  (p) => p.is_first_author && !p.is_preprint
+  (p) => p.is_first_author && !p.is_preprint && p.type !== "preregistration"
 );
 const firstAuthorPreprints = publications.filter(
-  (p) => p.is_first_author && p.is_preprint
+  (p) => p.is_first_author && p.is_preprint && p.type !== "preregistration"
 );
 const firstAuthorAll = [...firstAuthorPapers, ...firstAuthorPreprints];
 
 const coAuthoredPapers = publications.filter(
-  (p) => !p.is_first_author && !p.is_preprint
+  (p) => !p.is_first_author && !p.is_preprint && p.type !== "preregistration"
 );
 
-const preregistrations = publications.filter((p) => p.type === "preregistration");
+const preregistrations = publications.filter(
+  (p) => p.type === "preregistration"
+);
+
+const bookChapters = publications.filter(
+  (p) => p.type === "book-chapter"
+);
 ---
 
 <Layout title="Papers">
@@ -26,15 +32,25 @@ const preregistrations = publications.filter((p) => p.type === "preregistration"
     <h2 class="text-2xl font-semibold mb-6 mt-10">First-author papers</h2>
     <div class="space-y-8">
       {
-        firstAuthorAll.map((paper) => (
+        [...firstAuthorAll, ...bookChapters].map((paper) => (
           <div class="card bg-base-200">
             <div class="card-body">
-              <h3 class="card-title text-xl">
-                <a href={paper.link} class="hover:text-accent">
-                  {paper.title}
-                </a>
+              <h3 class="card-title text-xl flex-wrap">
+                {paper.link ? (
+                  <a href={paper.link} class="hover:text-accent" target="_blank">
+                    {paper.title}
+                  </a>
+                ) : (
+                  <span>{paper.title}</span>
+                )}
                 {paper.is_preprint && (
-                  <span class="badge badge-warning badge-sm ml-2">Preprint</span>
+                  <span class="badge badge-warning badge-sm">Preprint</span>
+                )}
+                {paper.shared_first_author && (
+                  <span class="badge badge-info badge-sm">Shared first author</span>
+                )}
+                {paper.type === "book-chapter" && (
+                  <span class="badge badge-ghost badge-sm">Book chapter</span>
                 )}
               </h3>
               <p class="text-base mb-2">
@@ -49,15 +65,17 @@ const preregistrations = publications.filter((p) => p.type === "preregistration"
               {paper.abstract && (
                 <p class="text-sm text-base-content/80">{paper.abstract}</p>
               )}
-              <div class="card-actions justify-end mt-4">
-                <a
-                  href={paper.link}
-                  class="btn btn-sm btn-secondary text-secondary-content"
-                  target="_blank"
-                >
-                  Read Paper
-                </a>
-              </div>
+              {paper.link && (
+                <div class="card-actions justify-end mt-4">
+                  <a
+                    href={paper.link}
+                    class="btn btn-sm btn-secondary text-secondary-content"
+                    target="_blank"
+                  >
+                    Read Paper
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         ))
@@ -72,7 +90,7 @@ const preregistrations = publications.filter((p) => p.type === "preregistration"
           <div class="card bg-base-200">
             <div class="card-body">
               <h3 class="card-title text-xl">
-                <a href={paper.link} class="hover:text-accent">
+                <a href={paper.link} class="hover:text-accent" target="_blank">
                   {paper.title}
                 </a>
               </h3>
@@ -103,47 +121,54 @@ const preregistrations = publications.filter((p) => p.type === "preregistration"
       }
     </div>
 
-    <!-- Preregistrations (added manually) -->
+    <!-- Preregistrations -->
     {preregistrations.length > 0 && (
-      <>
-        <h2 class="text-2xl font-semibold mb-6 mt-12">Preregistrations</h2>
-        <div class="space-y-8">
-          {
-            preregistrations.map((paper) => (
-              <div class="card bg-base-200">
-                <div class="card-body">
-                  <h3 class="card-title text-xl">
-                    <a href={paper.link} class="hover:text-accent">
-                      {paper.title}
-                    </a>
-                  </h3>
-                  <p class="text-base mb-2">
-                    <span class="font-medium">Authors:</span>{" "}
-                    <span set:html={highlightAuthor(paper.authors)} />
-                  </p>
-                  <p class="text-sm mb-3">
-                    <span class="italic">{paper.journal}</span>
-                    {paper.journal && paper.time && " • "}
-                    {paper.time}
-                  </p>
-                  {paper.abstract && (
-                    <p class="text-sm text-base-content/80">{paper.abstract}</p>
-                  )}
-                  <div class="card-actions justify-end mt-4">
-                    <a
-                      href={paper.link}
-                      class="btn btn-sm btn-secondary text-secondary-content"
-                      target="_blank"
-                    >
-                      View
-                    </a>
-                  </div>
+      <div class="flex items-center justify-between mt-12 mb-6">
+        <h2 class="text-2xl font-semibold">Preregistrations</h2>
+        <a
+          href="https://osf.io/user/nu6ms"
+          class="btn btn-sm btn-outline"
+          target="_blank"
+        >
+          View all on OSF
+        </a>
+      </div>
+      <div class="space-y-8">
+        {
+          preregistrations.map((paper) => (
+            <div class="card bg-base-200">
+              <div class="card-body">
+                <h3 class="card-title text-xl">
+                  <a href={paper.link} class="hover:text-accent" target="_blank">
+                    {paper.title}
+                  </a>
+                </h3>
+                <p class="text-base mb-2">
+                  <span class="font-medium">Authors:</span>{" "}
+                  <span set:html={highlightAuthor(paper.authors)} />
+                </p>
+                <p class="text-sm mb-3">
+                  <span class="italic">{paper.journal}</span>
+                  {paper.journal && paper.time && " • "}
+                  {paper.time}
+                </p>
+                {paper.abstract && (
+                  <p class="text-sm text-base-content/80">{paper.abstract}</p>
+                )}
+                <div class="card-actions justify-end mt-4">
+                  <a
+                    href={paper.link}
+                    class="btn btn-sm btn-secondary text-secondary-content"
+                    target="_blank"
+                  >
+                    View
+                  </a>
                 </div>
               </div>
-            ))
-          }
-        </div>
-      </>
+            </div>
+          ))
+        }
+      </div>
     )}
   </div>
 </Layout>
