@@ -21,18 +21,9 @@
     "abstract": "",
     "is_preprint": false,
     "is_first_author": true,
-    "doi": "10.1111/jsr.14479"
-  },
-  {
-    "title": "Adopting open-science infrastructure in the ENIGMA-Parkinson’s Disease consortium: A case study",
-    "link": "https://doi.org/10.31222/osf.io/dc5ey_v1",
-    "authors": "Sebastian Georg Wenzel Urchs, Nikhil Bhagwat, Emile d'Angremont, Eva van Heese, Alyssa Dai, Mathieu Dugré, Max A. Laansma, Brent McPherson, Michelle Wang, Tim Daniël van Balkom, Henk Berendse, Anna Dortmond, Franziska Goltz, Alain Dagher, Rick Helmich, Odile A. van den Heuvel, Martin E. Johansson, Teus van Laar, Elbrich M. Postma, Neda Jahanshad, Paul Thompson, Chris Vriend, Ysbrand van der Werf, Jean-Baptiste Poline",
-    "journal": "",
-    "time": "2025",
-    "abstract": "",
-    "is_preprint": true,
-    "is_first_author": false,
-    "doi": "10.31222/osf.io/dc5ey_v1"
+    "shared_first_author": false,
+    "doi": "10.1111/jsr.14479",
+    "type": null
   },
   {
     "title": "Adopting open-science infrastructure in the ENIGMA-Parkinson's Disease consortium: A case study",
@@ -98,17 +89,6 @@
     "shared_first_author": false,
     "doi": "",
     "type": "preregistration"
-  },
-  {
-    "title": "MRI-based surrogates of brain clearance in narcolepsy type 1",
-    "link": "https://doi.org/10.1101/2024.11.04.24316690",
-    "authors": "Eva M. van Heese, Jari K. Gool, Gert Jan Lammers, Ysbrand D. van der Werf, Matthias J.P. van Osch, Rolf Fronczek, Lydiane Hirschler",
-    "journal": "",
-    "time": "2024",
-    "abstract": "",
-    "is_preprint": true,
-    "is_first_author": true,
-    "doi": "10.1101/2024.11.04.24316690"
   },
   {
     "title": "A worldwide study of subcortical shape as a marker for clinical staging in Parkinson's disease",
