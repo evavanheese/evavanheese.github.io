@@ -2,35 +2,59 @@
 import Layout from "@/layouts/Layout.astro";
 import publications from "@/data/publications.json";
 import { highlightAuthor } from "@/lib/utils";
-import {template} from "@/settings";
 
-const ALL_PAPERS = publications; // This will be replaced with dynamic data later
+const firstAuthorPapers = publications.filter(
+  (p) => p.is_first_author && !p.is_preprint
+);
+const firstAuthorPreprints = publications.filter(
+  (p) => p.is_first_author && p.is_preprint
+);
+const firstAuthorAll = [...firstAuthorPapers, ...firstAuthorPreprints];
+
+const coAuthoredPapers = publications.filter(
+  (p) => !p.is_first_author && !p.is_preprint
+);
+
+const preregistrations = publications.filter((p) => p.type === "preregistration");
 ---
 
 <Layout title="Papers">
   <div class="prose max-w-none">
     <h1 class="text-3xl font-bold mb-8">Publications</h1>
 
+    <!-- First-author papers -->
+    <h2 class="text-2xl font-semibold mb-6 mt-10">First-author papers</h2>
     <div class="space-y-8">
       {
-        ALL_PAPERS.map((paper) => (
+        firstAuthorAll.map((paper) => (
           <div class="card bg-base-200">
             <div class="card-body">
-              <h2 class="card-title text-xl">
-                <a href={template.base + paper.link} class="hover:text-accent">
+              <h3 class="card-title text-xl">
+                <a href={paper.link} class="hover:text-accent">
                   {paper.title}
                 </a>
-              </h2>
+                {paper.is_preprint && (
+                  <span class="badge badge-warning badge-sm ml-2">Preprint</span>
+                )}
+              </h3>
               <p class="text-base mb-2">
                 <span class="font-medium">Authors:</span>{" "}
                 <span set:html={highlightAuthor(paper.authors)} />
               </p>
               <p class="text-sm mb-3">
-                <span class="italic">{paper.journal}</span> • {paper.time}
+                <span class="italic">{paper.journal}</span>
+                {paper.journal && paper.time && " • "}
+                {paper.time}
               </p>
-              <p class="text-sm text-base-content/80">{paper.abstract}</p>
+              {paper.abstract && (
+                <p class="text-sm text-base-content/80">{paper.abstract}</p>
+              )}
               <div class="card-actions justify-end mt-4">
-                <a href={paper.link} class="btn btn-sm btn-secondary text-secondary-content">
+                <a
+                  href={paper.link}
+                  class="btn btn-sm btn-secondary text-secondary-content"
+                  target="_blank"
+                >
                   Read Paper
                 </a>
               </div>
@@ -40,14 +64,86 @@ const ALL_PAPERS = publications; // This will be replaced with dynamic data late
       }
     </div>
 
-    <div class="flex justify-center mt-8">
-      <div class="join">
-        <button class="join-item btn btn-sm">«</button>
-        <button class="join-item btn btn-sm">1</button>
-        <button class="join-item btn btn-sm btn-active">2</button>
-        <button class="join-item btn btn-sm">3</button>
-        <button class="join-item btn btn-sm">»</button>
-      </div>
+    <!-- Co-authored papers (peer-reviewed only) -->
+    <h2 class="text-2xl font-semibold mb-6 mt-12">Co-authored papers</h2>
+    <div class="space-y-8">
+      {
+        coAuthoredPapers.map((paper) => (
+          <div class="card bg-base-200">
+            <div class="card-body">
+              <h3 class="card-title text-xl">
+                <a href={paper.link} class="hover:text-accent">
+                  {paper.title}
+                </a>
+              </h3>
+              <p class="text-base mb-2">
+                <span class="font-medium">Authors:</span>{" "}
+                <span set:html={highlightAuthor(paper.authors)} />
+              </p>
+              <p class="text-sm mb-3">
+                <span class="italic">{paper.journal}</span>
+                {paper.journal && paper.time && " • "}
+                {paper.time}
+              </p>
+              {paper.abstract && (
+                <p class="text-sm text-base-content/80">{paper.abstract}</p>
+              )}
+              <div class="card-actions justify-end mt-4">
+                <a
+                  href={paper.link}
+                  class="btn btn-sm btn-secondary text-secondary-content"
+                  target="_blank"
+                >
+                  Read Paper
+                </a>
+              </div>
+            </div>
+          </div>
+        ))
+      }
     </div>
+
+    <!-- Preregistrations (added manually) -->
+    {preregistrations.length > 0 && (
+      <>
+        <h2 class="text-2xl font-semibold mb-6 mt-12">Preregistrations</h2>
+        <div class="space-y-8">
+          {
+            preregistrations.map((paper) => (
+              <div class="card bg-base-200">
+                <div class="card-body">
+                  <h3 class="card-title text-xl">
+                    <a href={paper.link} class="hover:text-accent">
+                      {paper.title}
+                    </a>
+                  </h3>
+                  <p class="text-base mb-2">
+                    <span class="font-medium">Authors:</span>{" "}
+                    <span set:html={highlightAuthor(paper.authors)} />
+                  </p>
+                  <p class="text-sm mb-3">
+                    <span class="italic">{paper.journal}</span>
+                    {paper.journal && paper.time && " • "}
+                    {paper.time}
+                  </p>
+                  {paper.abstract && (
+                    <p class="text-sm text-base-content/80">{paper.abstract}</p>
+                  )}
+                  <div class="card-actions justify-end mt-4">
+                    <a
+                      href={paper.link}
+                      class="btn btn-sm btn-secondary text-secondary-content"
+                      target="_blank"
+                    >
+                      View
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </>
+    )}
   </div>
 </Layout>
