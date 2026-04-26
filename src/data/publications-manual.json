@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Example preregistration title",
+    "link": "https://osf.io/xxxxx",
+    "authors": "Eva M. van Heese, Co-author Name",
+    "journal": "OSF Registries",
+    "time": "2024",
+    "abstract": "Optional short description of the preregistration.",
+    "is_preprint": false,
+    "is_first_author": true,
+    "doi": "",
+    "type": "preregistration"
+  }
+]
