@@ -1,12 +1,20 @@
 import { profile } from '../settings'
 import { template } from '../settings'
 
-export function highlightAuthor(authors: string): string{
-	const author = authors.split(', ')
-	if (author.includes(profile.author_name)){
-		return authors.replace(profile.author_name, `<span class='font-medium underline'>${profile.author_name}</span>`)
-	}
-	return authors
+// Matches all reasonable variants my name:
+// Eva van Heese, Eva M. van Heese, E. van Heese, E.M. van Heese, E. M. van Heese
+const AUTHOR_PATTERN = /\bE(?:va)?\.?\s*M?\.?\s*van\s+Heese\b/g;
+
+export function highlightAuthor(authors: string): string {
+  if (AUTHOR_PATTERN.test(authors)) {
+    // Reset lastIndex after .test() so the subsequent .replace() works correctly
+    AUTHOR_PATTERN.lastIndex = 0;
+    return authors.replace(
+      AUTHOR_PATTERN,
+      (match) => `<span class='font-bold'>${match}</span>`
+    );
+  }
+  return authors;
 }
 
 export function trimExcerpt(excerpt: string): string {
