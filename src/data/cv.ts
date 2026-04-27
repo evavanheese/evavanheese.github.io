@@ -57,17 +57,17 @@ export const leadershipRoles = [
     description: '',
   },
   {
-    title: 'Early Career Researchers Committee Member',
-    organisation: 'Dutch Society for Sleep-Wake Research',
-    organisationUrl: 'https://www.nswo.nl/en/',
-    time: '2023 - 2026',
-    description: '',
-  },
-  {
     title: 'Co-chair - Open Science Working Group',
     organisation: 'Amsterdam UMC, Department of Anatomy and Neurosciences',
     organisationUrl: 'https://anatomy-neurosciences.com/initiatives/openscience/',
     time: '2023 - present',
+    description: '',
+  },
+  {
+    title: 'Early Career Researchers Committee Member',
+    organisation: 'Dutch Society for Sleep-Wake Research',
+    organisationUrl: 'https://www.nswo.nl/en/',
+    time: '2023 - 2026',
     description: '',
   },
   {
@@ -127,7 +127,7 @@ export const grantsAwards = [
   },
   {
     title: 'Award for Best Oral Presentation (3rd prize)',
-    organisation: 'European Sleep Research Society - Sleep Science School',
+    organisation: 'European Sleep Research Society',
     organisationUrl: 'https://esrs.eu/',
     organisationSuffix: ' - Sleep Science School',
     time: 'Sep 2023',
