@@ -1,89 +1,67 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import { experiences, education, skills, publications } from '../data/cv'
+import { education, leadershipRoles, teachingRoles, grantsAwards, certificates, programmingSkills } from '../data/cv'
 import CvTimeline from '@/components/ui/CvTimeline.astro'
-
-import type { Experience, Education, Publication } from '../types/cv'
 import List from '@/components/ui/List.astro'
-import PublicationsList from '@/components/ui/PublicationsList.astro'
+import type { Experience, Education } from '../types/cv'
 
-let orderedExperiences: Experience[] = []
-let orderedEducations: Education[] = []
-let orderedPublications: Publication[] = []
+type TimelineItem = Experience | Education
 
 const orderElement = <T extends { time: string }>(a: T, b: T) => {
   const presentValues = ['present', 'now', 'current', 'today']
-  if (
-			presentValues.includes(
-				(a['time'] as string)?.split(' - ')[1]?.toLowerCase()
-			)
-		) {
-			// If the date is 'present', it should be the first element
-			return -1
-		}
-		const dateA = new Date((a['time'] as string)?.split(' - ')[1])
-		const dateB = new Date((b['time'] as string)?.split(' - ')[1])
-		return dateB.getTime() - dateA.getTime()
+  if (presentValues.includes((a['time'] as string)?.split(' - ')[1]?.toLowerCase())) {
+    return -1
+  }
+  const dateA = new Date((a['time'] as string)?.split(' - ')[1])
+  const dateB = new Date((b['time'] as string)?.split(' - ')[1])
+  return dateB.getTime() - dateA.getTime()
 }
 
-if (experiences.length > 0) {
-	orderedExperiences = experiences.sort((a, b) => {
-		return orderElement(a, b)
-	})
-}
-
-if (education.length > 0) {
-	orderedEducations = education.sort((a, b) => {
-		return orderElement(a, b)
-	})
-}
-
-if (publications.length > 0) {
-	orderedPublications = publications.sort((a, b) => {
-		return orderElement(a, b)
-	})
-}
+const orderedEducation = [...education].sort(orderElement)
+const orderedLeadership = [...leadershipRoles].sort(orderElement)
+const orderedGrants = [...grantsAwards].sort(orderElement)
 ---
 
-<Layout>
-	{
-		orderedEducations.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
-					Education
-				</h2>
-				<CvTimeline elements={orderedEducations} colored={true} />
-			</section>
-		)
-	}
+<Layout title="CV">
+  <!-- Education -->
+  <section class='mb-12'>
+    <h2 class='text-2xl font-bold mb-6 border-b pb-2'>Education and Training</h2>
+    <CvTimeline elements={orderedEducation} colored={true} />
+  </section>
 
-	{
-		orderedExperiences.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
-					Experiences
-				</h2>
-				<CvTimeline elements={orderedExperiences} colored={true} />
-			</section>
-		)
-	}
+  <!-- Leadership -->
+  <section class='mb-12'>
+    <h2 class='text-2xl font-bold mb-6 border-b pb-2'>Leadership and Community Roles</h2>
+    <CvTimeline elements={orderedLeadership} colored={true} />
+  </section>
 
-	{
-		orderedPublications.length > 0 && (
-			<section class='mb-12'>
-				<h2 class='text-2xl font-bold mb-6 border-b pb-2'>
-					Last publications
-				</h2>
-				<PublicationsList elements={orderedPublications}/>
-			</section>
-		)
-	}
+  <!-- Teaching -->
+  <section class='mb-12'>
+    <h2 class='text-2xl font-bold mb-6 border-b pb-2'>Teaching and Mentorship Roles</h2>
+    <List listTitle='' listItems={teachingRoles} />
+  </section>
 
-	{
-		skills.length > 0 && (
-			<section class='mb-12'>
-				<List listTitle='Skills' listItems={skills}/>
-			</section>
-		)
-	}
+  <!-- Grants & Awards -->
+  <section class='mb-12'>
+    <h2 class='text-2xl font-bold mb-6 border-b pb-2'>Grants & Awards</h2>
+    <CvTimeline elements={orderedGrants} colored={true} />
+  </section>
+
+  <!-- Certificates -->
+  <section class='mb-12'>
+    <h2 class='text-2xl font-bold mb-6 border-b pb-2'>Certificates & Qualifications</h2>
+    <List listTitle='' listItems={certificates} />
+  </section>
+
+  <!-- Programming Skills -->
+  <section class='mb-12'>
+    <h2 class='text-2xl font-bold mb-6 border-b pb-2'>Programming & Computational Skills</h2>
+    <List listTitle='' listItems={programmingSkills} />
+  </section>
+
+  <!-- Links to other pages -->
+  <section class='mb-12 flex gap-4'>
+    <a href='/papers' class='btn btn-outline btn-sm'>View Publications</a>
+    <a href='/conferences' class='btn btn-outline btn-sm'>View Conference Presentations</a>
+  </section>
 </Layout>
