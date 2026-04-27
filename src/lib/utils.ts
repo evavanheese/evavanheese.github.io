@@ -10,7 +10,7 @@ export function highlightAuthor(authors: string): string {
     AUTHOR_PATTERN.lastIndex = 0;
     return authors.replace(
       AUTHOR_PATTERN,
-      (match) => `<span class='font-bold text-primary'>${match}</span>`
+      (match) => `<span class='font-bold text-accent'>${match}</span>`
     );
   }
   return authors;
