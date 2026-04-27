@@ -6,12 +6,14 @@ interface Department {
 
 interface EducationItem {
   school: string
+  schoolUrl: string
   time: string
   degree: string
   location: string
   departments: Department[]
   supervisors: string
   description: string
+  bullets: string[]
 }
 
 interface Props {
@@ -21,23 +23,30 @@ interface Props {
 const { elements } = Astro.props
 ---
 
-<ul class="space-y-8">
+<ul class="relative space-y-10 before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-0.5 before:bg-primary/30">
   {elements.map((item) => (
-    <li class="relative pl-6 border-l-2 border-primary/30">
-      <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary/60"></div>
+    <li class="relative pl-8">
+      <!-- filled dot -->
+      <div class="absolute left-0 top-1.5 w-3.5 h-3.5 rounded-full bg-primary border-2 border-base-100 shadow"></div>
 
       <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 mb-1">
         <h3 class="text-lg font-bold">{item.degree}</h3>
         <span class="text-sm text-base-content/60 shrink-0">{item.time}</span>
       </div>
 
-      <p class="text-base font-medium text-primary mb-1">{item.school} — {item.location}</p>
+      <p class="text-base font-medium text-primary mb-1">
+        {item.schoolUrl
+          ? <a href={item.schoolUrl} class="underline hover:text-accent" target="_blank">{item.school}</a>
+          : item.school
+        }
+        {' '}- {item.location}
+      </p>
 
       {item.departments.length > 0 && (
         <p class="text-sm mb-1">
           {item.departments.map((dept, i) => (
             <>
-              <a href={dept.url} class="link link-hover" target="_blank">{dept.name}</a>
+              <a href={dept.url} class="underline hover:text-accent" target="_blank">{dept.name}</a>
               {i < item.departments.length - 1 && <span> & </span>}
             </>
           ))}
@@ -47,12 +56,20 @@ const { elements } = Astro.props
       {item.supervisors && (
         <p class="text-sm mb-2">
           <span class="font-semibold text-accent">Supervisors:</span>{' '}
-          {item.supervisors}
+          <strong class="text-accent">{item.supervisors}</strong>
         </p>
       )}
 
+      {item.bullets.length > 0 && (
+        <ul class="mt-2 space-y-1 list-disc list-inside text-sm text-base-content/80">
+          {item.bullets.map((bullet) => (
+            <li set:html={bullet} />
+          ))}
+        </ul>
+      )}
+
       {item.description && (
-        <p class="text-sm text-base-content/80" set:html={item.description} />
+        <p class="text-sm text-base-content/80 mt-1" set:html={item.description} />
       )}
     </li>
   ))}
