@@ -2,6 +2,7 @@
 interface RoleItem {
   title: string
   organisation?: string
+  organisationUrl?: string
   time?: string
   description?: string
 }
@@ -23,12 +24,17 @@ const { items } = Astro.props
         )}
       </div>
       {item.organisation && (
-        <p class="text-sm text-primary font-medium">{item.organisation}</p>
+        <p class="text-sm text-primary font-medium">
+          {item.organisationUrl
+            ? <a href={item.organisationUrl} class="underline hover:text-accent" target="_blank">{item.organisation}</a>
+            : item.organisation
+          }
+        </p>
       )}
       {item.description && (
         <div class="text-sm text-base-content/80 mt-1 space-y-0.5">
           {item.description.split('\n').map((line: string) => (
-            <p>{line}</p>
+            <p set:html={line} />
           ))}
         </div>
       )}
