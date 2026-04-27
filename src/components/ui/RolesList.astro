@@ -3,6 +3,7 @@ interface RoleItem {
   title: string
   organisation?: string
   organisationUrl?: string
+  organisationSuffix?: string
   time?: string
   description?: string
 }
@@ -20,13 +21,23 @@ const { items } = Astro.props
       <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <span class="font-bold text-base">{item.title}</span>
         {item.time && (
-          <span class="text-sm text-base-content/60 shrink-0">{item.time}</span>
+          <span class="text-base font-medium text-base-content shrink-0">{item.time}</span>
         )}
       </div>
       {item.organisation && (
         <p class="text-sm text-primary font-medium">
           {item.organisationUrl
-            ? <a href={item.organisationUrl} class="underline hover:text-accent" target="_blank">{item.organisation}</a>
+            ? (
+              <>
+                <a href={item.organisationUrl} class="underline hover:text-accent" target="_blank">
+                  {item.organisationSuffix
+                    ? item.organisation.replace(item.organisationSuffix, '')
+                    : item.organisation
+                  }
+                </a>
+                {item.organisationSuffix && <span>{item.organisationSuffix}</span>}
+              </>
+            )
             : item.organisation
           }
         </p>
