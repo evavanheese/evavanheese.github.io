@@ -154,5 +154,18 @@
     "shared_first_author": false,
     "doi": "",
     "type": "preregistration"
+  },
+  {
+    "title": "The therapeutic potential of opioids in narcolepsy type 1: A systematic literature review and questionnaire study",
+    "link": "https://doi.org/10.1016/j.sleep.2023.06.008",
+    "authors": "Jari K. Gool, Eva M. van Heese, Mink S. Schinkelshoek, Aniek Remmerswaal, Gert Jan Lammers, Karin D. van Dijk, Rolf Fronczek",
+    "journal": "Sleep Medicine",
+    "time": "2023",
+    "abstract": "",
+    "is_preprint": false,
+    "is_first_author": false,
+    "shared_first_author": false,
+    "doi": "10.1016/j.sleep.2023.06.008",
+    "type": null
   }
 ]
