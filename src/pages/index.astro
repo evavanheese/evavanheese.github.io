@@ -1,38 +1,98 @@
 ---
-import Layout from '../layouts/Layout.astro'
+import Layout from "@/layouts/Layout.astro";
+import { profile } from "@/settings";
+import ProfilePictures from "@/assets/eva-van-heese-picture.jpg";
+import Hero from "@/components/ui/Hero.astro";
+import publications from "@/data/publications.json";
 
-import { profile } from '@/settings'
-import publications from '@/data/publications.json'
-import ProfilePictures from '@/assets/eva-van-heese-picture.jpg'
-import Hero from '@/components/ui/Hero.astro'
-import Grid from '@/components/ui/Grid.astro'
-import ArticleList from '@/components/ui/ArticleList.astro'
+const { fullName, title, institute, bio } = profile;
 
-const { fullName, title, institute, research_areas, bio } = profile
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Top 3 most recent peer-reviewed publications (no preprints, no preregistrations)
+const recentPublications = publications
+  .filter((p) => !p.is_preprint && p.type !== "preregistration" && p.type !== "book-chapter")
+  .slice(0, 3);
 ---
 
 <Layout>
-	<!-- Hero Section -->
-	<section class='flex items-center gap-12 border-b pb-12'>
-		<Hero
-			fullName={fullName}
-			title={title}
-			institute={institute}
-			bio={bio}
-			profilePicture={ProfilePictures}
-		/>
-	</section>
+  <!-- Hero Section -->
+  <section class="flex items-center gap-12 border-b pb-12">
+    <Hero
+      fullName={fullName}
+      title={title}
+      institute={institute}
+      bio={bio}
+      profilePicture={ProfilePictures}
+    />
+  </section>
 
-	<!-- Research Areas -->
-	<section class='py-12 border-b'>
-		<Grid gridTitle='Research Areas' gridItems={research_areas} />
-	</section>
+  <!-- Navigation Tiles -->
+  <section class="py-12 border-b">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
 
-	<!-- Recent Publications -->
-	<section class='py-12 border-t'>
-		<ArticleList listTitle='Recent Publications' listItems={publications} />
-	</section>
+      <a href="/research" class="card bg-base-200 hover:bg-base-300 transition-colors cursor-pointer shadow-sm">
+        <div class="card-body items-center text-center py-6 px-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-8 stroke-accent mb-2" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/>
+          </svg>
+          <h3 class="font-bold text-base-content">Research</h3>
+          <p class="text-xs text-base-content/70 mt-1">What I work on</p>
+        </div>
+      </a>
+
+      <a href="/cv" class="card bg-base-200 hover:bg-base-300 transition-colors cursor-pointer shadow-sm">
+        <div class="card-body items-center text-center py-6 px-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-8 stroke-accent mb-2" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+          </svg>
+          <h3 class="font-bold text-base-content">CV</h3>
+          <p class="text-xs text-base-content/70 mt-1">Education, experience & skills</p>
+        </div>
+      </a>
+
+      <a href="/papers" class="card bg-base-200 hover:bg-base-300 transition-colors cursor-pointer shadow-sm">
+        <div class="card-body items-center text-center py-6 px-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-8 stroke-accent mb-2" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          <h3 class="font-bold text-base-content">Papers</h3>
+          <p class="text-xs text-base-content/70 mt-1">A peek at my publications</p>
+        </div>
+      </a>
+
+      <a href="/updates" class="card bg-base-200 hover:bg-base-300 transition-colors cursor-pointer shadow-sm">
+        <div class="card-body items-center text-center py-6 px-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-8 stroke-accent mb-2" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+          </svg>
+          <h3 class="font-bold text-base-content">Updates</h3>
+          <p class="text-xs text-base-content/70 mt-1">Latest from LinkedIn</p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Recent Publications -->
+  <section class="py-12">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-bold">Recent Publications & Preprints</h2>
+      <a href="/papers" class="btn btn-primary btn-sm">View all</a>
+    </div>
+    <div class="space-y-4">
+      {recentPublications.map((paper) => (
+        <div class="card bg-base-200 shadow-sm">
+          <div class="card-body py-4">
+            <a href={paper.link} class="font-bold hover:text-accent text-base" target="_blank">
+              {paper.title}
+            </a>
+            <p class="text-sm text-base-content/70 mt-1">
+              <span class="italic">{paper.journal}</span>
+              {paper.journal && paper.time && " • "}
+              {paper.time}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
 </Layout>
