@@ -10,6 +10,7 @@ export const education = [
       { name: 'C.J. Gorter MRI Center, Department of Radiology', url: 'https://www.lumc.nl/en/afdelingen/radiologie/c.j.gorter-mri-center/' },
     ],
     supervisors: 'Ysbrand van der Werf, Odile van den Heuvel, Thanh Dang-Vu, Jari Gool',
+    internshipsLabel: '',
     description: '',
     bullets: [],
   },
@@ -21,11 +22,12 @@ export const education = [
     location: 'Amsterdam, the Netherlands',
     departments: [],
     supervisors: '',
+    internshipsLabel: 'Internships at:',
     description: '',
     bullets: [
-      'Netherlands Institute for Neuroscience, <a href="https://nin.nl/research-groups/van-someren/" class="underline hover:text-accent">Sleep & Cognition lab</a> - Supervisors: <strong class="text-accent">Eus van Someren, Joyce Reesen, Siemon de Lange</strong>',
-      'Concordia University, <a href="https://scnlab.com/" class="underline hover:text-accent">SCN Lab</a>, Canada - Supervisors: <strong class="text-accent">Thanh Dang-Vu, Nathan Cross</strong>',
-      'Leiden UMC, Department of Radiology, MR-Phys group - Supervisors: <strong class="text-accent">Lydiane Hirschler, Thijs van Osch</strong>',
+      'Netherlands Institute for Neuroscience, <a href="https://nin.nl/research-groups/van-someren/" class="underline hover:text-accent" target="_blank">Sleep & Cognition lab</a> - <span class="text-accent">Supervisors:</span> Eus van Someren, Joyce Reesen, Siemon de Lange',
+      'Concordia University, <a href="https://scnlab.com/" class="underline hover:text-accent" target="_blank">SCN Lab</a>, Canada - <span class="text-accent">Supervisors:</span> Thanh Dang-Vu, Nathan Cross',
+      'Leiden UMC, Department of Radiology, MR-Phys group - <span class="text-accent">Supervisors:</span> Lydiane Hirschler, Thijs van Osch',
     ],
   },
   {
@@ -36,11 +38,12 @@ export const education = [
     location: 'Amsterdam, the Netherlands',
     departments: [],
     supervisors: '',
+    internshipsLabel: '',
     description: '',
     bullets: [
       'Honours Programme',
-      'International exchange at the <a href="https://www.birmingham.ac.uk/" class="underline hover:text-accent">University of Birmingham</a>, UK',
-      'Internship at Amsterdam UMC, <a href="https://anatomy-neurosciences.com/" class="underline hover:text-accent">Department of Anatomy and Neurosciences</a>, team Neuropsychiatry - Supervisors: <strong class="text-accent">Ysbrand van der Werf, Jari Gool, Max Laansma</strong>',
+      'International exchange at the <a href="https://www.birmingham.ac.uk/" class="underline hover:text-accent" target="_blank">University of Birmingham</a>, United Kingdom',
+      'Internship at Amsterdam UMC, <a href="https://anatomy-neurosciences.com/" class="underline hover:text-accent" target="_blank">Department of Anatomy and Neurosciences</a> - <span class="text-accent">Supervisors:</span> Ysbrand van der Werf, Jari Gool, Max Laansma',
     ],
   },
 ];
@@ -63,14 +66,14 @@ export const leadershipRoles = [
   {
     title: 'Co-chair - Open Science Working Group',
     organisation: 'Amsterdam UMC, Department of Anatomy and Neurosciences',
-    organisationUrl: 'https://anatomy-neurosciences.com/',
+    organisationUrl: 'https://anatomy-neurosciences.com/initiatives/openscience/',
     time: '2023 - present',
     description: '',
   },
   {
     title: 'Chair - Departmental PhD Association',
     organisation: 'Amsterdam UMC, Department of Anatomy and Neurosciences',
-    organisationUrl: 'https://anatomy-neurosciences.com/',
+    organisationUrl: '',
     time: '2023 - 2025',
     description: '',
   },
@@ -82,7 +85,7 @@ export const teachingRoles = [
     organisation: '',
     organisationUrl: '',
     time: '2022 - present',
-    description: 'Coordinated hands-on sessions on brain anatomy for primary and high school students\nLay-language talks for patients and caregivers\nPublic science events (<a href="https://leidseschouwburg-stadsgehoorzaal.nl/voorstelling/libc-pubilieksdag-2025-neuroscience-hoop-voor-hersenen/" class="underline hover:text-accent">Leiden Public Science Day 2025</a>)',
+    description: 'Coordinated hands-on sessions on brain anatomy for primary and high school students\nLay-language talks for patients and caregivers\nPublic science events (<a href="https://leidseschouwburg-stadsgehoorzaal.nl/voorstelling/libc-pubilieksdag-2025-neuroscience-hoop-voor-hersenen/" class="underline hover:text-accent" target="_blank">Leiden Public Science Day 2025</a>)',
   },
   {
     title: 'Tutorials, Lectures, and Student Supervision',
@@ -95,37 +98,38 @@ export const teachingRoles = [
 
 export const grantsAwards = [
   {
-    title: 'ESRS Meeting & Courses Fellowship',
+    title: 'Meeting & Courses Fellowship',
     organisation: 'European Sleep Research Society',
-    organisationUrl: '',
+    organisationUrl: 'https://esrs.eu/',
     time: 'Mar 2026',
     description: '€500',
   },
   {
     title: 'Best Abstract Award (reproducibility category)',
-    organisation: 'ESMRMB',
-    organisationUrl: '',
+    organisation: 'European Society for Magnetic Resonance in Medicine and Biology (ESMRMB)',
+    organisationUrl: 'https://www.esmrmb.org/',
     time: 'Oct 2024',
     description: '',
   },
   {
     title: 'Sustainable Travel Grant',
-    organisation: 'ESRS',
-    organisationUrl: '',
+    organisation: 'European Sleep Research Society',
+    organisationUrl: 'https://esrs.eu/',
     time: 'Sep 2024',
     description: '€500',
   },
   {
     title: 'Open Science Challenge',
     organisation: 'ISMRM Benelux',
-    organisationUrl: '',
+    organisationUrl: 'https://www.ismrm-benelux.org/',
     time: 'Mar 2024',
     description: '€500 & registration fee (€125)',
   },
   {
     title: 'Award for Best Oral Presentation (3rd prize)',
-    organisation: 'ESRS Sleep Science School',
-    organisationUrl: '',
+    organisation: 'European Sleep Research Society - Sleep Science School',
+    organisationUrl: 'https://esrs.eu/',
+    organisationSuffix: ' - Sleep Science School',
     time: 'Sep 2023',
     description: '',
   },
@@ -154,11 +158,18 @@ export const grantsAwards = [
 
 export const certificates = [
   {
-    title: 'MR Operator & MR Safety',
+    title: 'MR Operator',
     organisation: '',
     organisationUrl: '',
     time: '',
-    description: 'Philips 7T at Spinoza Centre for Neuroimaging\nSiemens 3T at Amsterdam UMC, Department of Radiology\nPhilips 7T at Leiden UMC, Department of Radiology',
+    description: 'Philips 7T at <a href="https://www.spinozacentre.nl/" class="underline hover:text-accent" target="_blank">Spinoza Centre for Neuroimaging</a>\nSiemens 3T at Amsterdam UMC, Department of Radiology',
+  },
+  {
+    title: 'MR Safety',
+    organisation: '',
+    organisationUrl: '',
+    time: '',
+    description: 'Philips 7T at Leiden UMC, Department of Radiology',
   },
   {
     title: 'Good Clinical Practice (GCP/WMO)',
