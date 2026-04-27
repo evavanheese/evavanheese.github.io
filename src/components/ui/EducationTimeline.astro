@@ -1,0 +1,59 @@
+---
+interface Department {
+  name: string
+  url: string
+}
+
+interface EducationItem {
+  school: string
+  time: string
+  degree: string
+  location: string
+  departments: Department[]
+  supervisors: string
+  description: string
+}
+
+interface Props {
+  elements: EducationItem[]
+}
+
+const { elements } = Astro.props
+---
+
+<ul class="space-y-8">
+  {elements.map((item) => (
+    <li class="relative pl-6 border-l-2 border-primary/30">
+      <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary/60"></div>
+
+      <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 mb-1">
+        <h3 class="text-lg font-bold">{item.degree}</h3>
+        <span class="text-sm text-base-content/60 shrink-0">{item.time}</span>
+      </div>
+
+      <p class="text-base font-medium text-primary mb-1">{item.school} — {item.location}</p>
+
+      {item.departments.length > 0 && (
+        <p class="text-sm mb-1">
+          {item.departments.map((dept, i) => (
+            <>
+              <a href={dept.url} class="link link-hover" target="_blank">{dept.name}</a>
+              {i < item.departments.length - 1 && <span> & </span>}
+            </>
+          ))}
+        </p>
+      )}
+
+      {item.supervisors && (
+        <p class="text-sm mb-2">
+          <span class="font-semibold text-accent">Supervisors:</span>{' '}
+          {item.supervisors}
+        </p>
+      )}
+
+      {item.description && (
+        <p class="text-sm text-base-content/80" set:html={item.description} />
+      )}
+    </li>
+  ))}
+</ul>
