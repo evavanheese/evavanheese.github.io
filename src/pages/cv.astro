@@ -1,56 +1,52 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 import { education, leadershipRoles, teachingRoles, grantsAwards, certificates, programmingSkills } from '../data/cv'
-import CvTimeline from '@/components/ui/CvTimeline.astro'
+import EducationTimeline from '@/components/ui/EducationTimeline.astro'
+import RolesList from '@/components/ui/RolesList.astro'
 import List from '@/components/ui/List.astro'
-import type { Experience, Education } from '../types/cv'
 
-type TimelineItem = Experience | Education
-
-const orderElement = <T extends { time: string }>(a: T, b: T) => {
+const orderEducation = (a: { time: string }, b: { time: string }) => {
   const presentValues = ['present', 'now', 'current', 'today']
-  if (presentValues.includes((a['time'] as string)?.split(' - ')[1]?.toLowerCase())) {
-    return -1
-  }
-  const dateA = new Date((a['time'] as string)?.split(' - ')[1])
-  const dateB = new Date((b['time'] as string)?.split(' - ')[1])
+  if (presentValues.includes(a.time?.split(' - ')[1]?.toLowerCase())) return -1
+  if (presentValues.includes(b.time?.split(' - ')[1]?.toLowerCase())) return 1
+  const dateA = new Date(a.time?.split(' - ')[1])
+  const dateB = new Date(b.time?.split(' - ')[1])
   return dateB.getTime() - dateA.getTime()
 }
 
-const orderedEducation = [...education].sort(orderElement)
-const orderedLeadership = [...leadershipRoles].sort(orderElement)
-const orderedGrants = [...grantsAwards].sort(orderElement)
+const orderedEducation = [...education].sort(orderEducation)
 ---
 
 <Layout title="CV">
+
   <!-- Education -->
   <section class='mb-12'>
     <h2 class='text-2xl font-bold mb-6 border-b pb-2'>Education and Training</h2>
-    <CvTimeline elements={orderedEducation} colored={true} />
+    <EducationTimeline elements={orderedEducation} />
   </section>
 
   <!-- Leadership -->
   <section class='mb-12'>
     <h2 class='text-2xl font-bold mb-6 border-b pb-2'>Leadership and Community Roles</h2>
-    <CvTimeline elements={orderedLeadership} colored={true} />
+    <RolesList items={leadershipRoles} />
   </section>
 
   <!-- Teaching -->
   <section class='mb-12'>
     <h2 class='text-2xl font-bold mb-6 border-b pb-2'>Teaching and Mentorship Roles</h2>
-    <List listTitle='' listItems={teachingRoles} />
+    <RolesList items={teachingRoles} />
   </section>
 
   <!-- Grants & Awards -->
   <section class='mb-12'>
     <h2 class='text-2xl font-bold mb-6 border-b pb-2'>Grants & Awards</h2>
-    <CvTimeline elements={orderedGrants} colored={true} />
+    <RolesList items={grantsAwards} />
   </section>
 
   <!-- Certificates -->
   <section class='mb-12'>
     <h2 class='text-2xl font-bold mb-6 border-b pb-2'>Certificates & Qualifications</h2>
-    <List listTitle='' listItems={certificates} />
+    <RolesList items={certificates} />
   </section>
 
   <!-- Programming Skills -->
@@ -59,9 +55,10 @@ const orderedGrants = [...grantsAwards].sort(orderElement)
     <List listTitle='' listItems={programmingSkills} />
   </section>
 
-  <!-- Links to other pages -->
+  <!-- Links -->
   <section class='mb-12 flex gap-4'>
     <a href='/papers' class='btn btn-outline btn-sm'>View Publications</a>
     <a href='/conferences' class='btn btn-outline btn-sm'>View Conference Presentations</a>
   </section>
+
 </Layout>
