@@ -56,8 +56,8 @@ export const template = {
   website_url: 'https://evavanheese.github.io',
   menu_left: false,
   transitions: true,
-  lightTheme: 'evaLight',
-  darkTheme: 'evaDark',
+  lightTheme: 'eva',
+  darkTheme: 'eva',
   excerptLength: 200,
   postPerPage: 5,
   base: '' // user site
