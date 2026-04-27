@@ -1,0 +1,37 @@
+---
+interface RoleItem {
+  title: string
+  organisation?: string
+  time?: string
+  description?: string
+}
+
+interface Props {
+  items: RoleItem[]
+}
+
+const { items } = Astro.props
+---
+
+<ul class="space-y-6">
+  {items.map((item) => (
+    <li>
+      <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <span class="font-bold text-base">{item.title}</span>
+        {item.time && (
+          <span class="text-sm text-base-content/60 shrink-0">{item.time}</span>
+        )}
+      </div>
+      {item.organisation && (
+        <p class="text-sm text-primary font-medium">{item.organisation}</p>
+      )}
+      {item.description && (
+        <div class="text-sm text-base-content/80 mt-1 space-y-0.5">
+          {item.description.split('\n').map((line: string) => (
+            <p>{line}</p>
+          ))}
+        </div>
+      )}
+    </li>
+  ))}
+</ul>
